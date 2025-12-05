@@ -19,7 +19,7 @@ const config: Config = {
   // Set the production url of your site here
   url: 'https://github.com',
   // Set the /<baseUrl>/ pathname under which your site is served
-  baseUrl: '/q4-book-hackathon/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   organizationName: 'unknown', // Usually your GitHub org/user name.
