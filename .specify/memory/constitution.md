@@ -1,55 +1,44 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+Version change: 1.0.0 -> 1.1.0
+Modified: Renamed project to "Docusaurus Book Project". Merged core SDD principles with user-provided book production principles.
+Added sections: Verified Reproducibility, Accessibility & Clarity, Framework Alignment.
+Removed sections: Test-First (Superseded by Verified Reproducibility for book context).
+Templates requiring updates: None.
+Follow-up: None.
+-->
+# Docusaurus Book Project Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven Development (SDD)
+All chapters and features start with a specification. We clarify requirements, outline structure, and define content blocks before writing. The spec file is the source of truth.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Verified Reproducibility
+All tutorials, code samples, and deployment steps MUST be tested and reproducible. Users (beginners to intermediate) must be able to execute every instruction without error. "Works on my machine" is not acceptable; it must work on Windows and macOS.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Accessibility & Clarity
+Use simple, direct language. Avoid unnecessary jargon. Explain *why* before showing *how*. Content is written for humans first, aiming for a consistent "beginner-to-intermediate" tone.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Framework Alignment (Docusaurus First)
+Structure content according to Docusaurus best practices (intro, guides, tutorials, references). The book itself must build with zero warnings. Code examples must adhere to modern JS/TS standards.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Authoritative Source Mandate
+Agents MUST prioritize using CLI commands for information gathering. Do not invent APIs or Docusaurus configuration options; verify them against documentation or actual execution.
 
-### [PRINCIPLE_6_NAME]
+### VI. Knowledge Capture (PHR)
+Every user interaction must be recorded in a Prompt History Record (PHR). Context is preserved to allow seamless handoffs.
 
+## Operational Standards
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- **Format**: Markdown source compatible with Docusaurus.
+- **Visuals**: Provide screenshots or terminal snippets where helpful.
+- **Workflow**: The book is produced using Spec-Kit Plus and the AI Agent (Gemini) as core tools.
+- **Scope**: Minimum 6 chapters (Intro, Setup, Building, Writing, Deployment, Advanced).
+- **Deliverable**: At least 1 complete working Docusaurus project included.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other practices. Amendments require a pull request and version bump.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.1.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-05
