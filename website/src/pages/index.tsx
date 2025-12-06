@@ -116,7 +116,7 @@ export default function Home(): ReactNode {
                   "Sim-to-Real Transfer Techniques"
                 ]}
                 link="/docs/module-2/gazebo-unity"
-                icon={<ModuleIcon className="module-icon-svg" style={{transform: 'rotate(90deg)'}} />}
+                icon={<ModuleIcon className="module-icon-svg" style={{filter: 'hue-rotate(90deg)'}} />}
               />
 
               <ModuleCard 
@@ -128,7 +128,7 @@ export default function Home(): ReactNode {
                   "Deep Reinforcement Learning Training"
                 ]}
                 link="/docs/module-3/nvidia-isaac"
-                icon={<ModuleIcon className="module-icon-svg" style={{filter: 'hue-rotate(90deg)'}} />}
+                icon={<ModuleIcon className="module-icon-svg" style={{filter: 'hue-rotate(180deg)'}} />}
               />
 
               <ModuleCard 
@@ -140,7 +140,7 @@ export default function Home(): ReactNode {
                   "LLM Integration for Command Interpretation"
                 ]}
                 link="/docs/module-4/vla-foundations"
-                icon={<ModuleIcon className="module-icon-svg" style={{filter: 'hue-rotate(180deg)'}} />}
+                icon={<ModuleIcon className="module-icon-svg" style={{filter: 'hue-rotate(270deg)'}} />}
               />
 
             </div>
