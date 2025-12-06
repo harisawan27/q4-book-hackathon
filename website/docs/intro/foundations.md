@@ -7,31 +7,27 @@ description: Core concepts of Physical AI and how they differ from traditional A
 
 # Physical AI & Embodied Intelligence
 
-## What is Physical AI?
+## Weeks 1-2: Introduction to Physical AI
 
-**Physical AI** refers to AI systems that interact directly with the physical world. Unlike "Digital AI" (like ChatGPT or image generators) that lives on servers and processes data, Physical AI must handle the unpredictability, physics, and constraints of reality.
+This section lays the groundwork for the transition from purely digital algorithms to embodied systems that must respect the laws of physics.
 
-### Key Characteristics
+### Foundations of Physical AI and Embodied Intelligence
+Physical AI refers to AI systems that interact directly with the physical world. Unlike "Digital AI" (like ChatGPT) that lives on servers, Physical AI is **embodied**—it is housed within a physical body (robot) that constrains and enables its actions.
+*   **From digital AI to robots that understand physical laws:** We explore how latency, gravity, friction, and mechanical limits fundamentally change how we design AI algorithms.
 
-1.  **Embodiment**: The intelligence is housed within a physical body (robot) that constrains and enables its actions.
-2.  **Interaction**: The system learns by interacting with the environment, not just by observing static datasets.
-3.  **Real-time Constraints**: Decisions must be made within milliseconds to ensure stability and safety.
+### Overview of the Humanoid Robotics Landscape
+Humanoid robots are the ultimate challenge in Physical AI. They are designed to operate in environments built for humans (stairs, doors, tools) but face significant stability and control challenges. We will examine current state-of-the-art platforms and the shift towards general-purpose humanoids.
 
-## The Rise of Humanoid Robotics
+### Sensor Systems
+A robot's ability to perceive the world is the first step in the feedback loop. We cover the essential sensors that act as the robot's senses:
+*   **LiDAR:** For precise distance mapping and SLAM.
+*   **Cameras (RGB & Depth):** For visual recognition and spatial awareness.
+*   **IMUs (Inertial Measurement Units):** The "inner ear" for balance and orientation.
+*   **Force/Torque Sensors:** For tactile feedback and interaction control.
 
-Humanoid robots represent the ultimate challenge in Physical AI. They are designed to operate in environments built for humans (stairs, doors, tools) but face significant stability and control challenges.
-
-### Why Now?
-
--   **Compute**: GPUs (like Jetson Orin) are now powerful enough to run neural networks at the edge.
--   **Simulation**: Simulators (Isaac Sim) allow training robots in "gyms" for millions of hours before physical deployment.
--   **Foundation Models**: VLA (Vision-Language-Action) models allow robots to understand semantic instructions ("Pick up the red apple") without hard-coded rules.
-
-## The Feedback Loop
-
-The core loop of any physical AI agent is:
-
-1.  **Perception**: Sensors (Cameras, LiDAR, IMU) $\rightarrow$ State Estimation.
-2.  **Reasoning**: State $\rightarrow$ Action Plan (LLM/VLA).
-3.  **Control**: Action Plan $\rightarrow$ Motor Torques (Low-level control).
-4.  **Actuation**: Motors move the robot $\rightarrow$ World State changes.
+## The Core Loop
+The fundamental cycle of any physical AI agent involves:
+1.  **Perception**: Sensors --> State Estimation.
+2.  **Reasoning**: State --> Action Plan (LLM/VLA).
+3.  **Control**: Action Plan --> Motor Torques.
+4.  **Actuation**: Motors move the robot --> World State changes.

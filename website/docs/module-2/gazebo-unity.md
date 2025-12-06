@@ -1,43 +1,28 @@
 ---
 id: gazebo-unity
-title: The Digital Twin
-sidebar_label: Digital Twin
-description: Building physics-accurate simulations.
+title: The Digital Twin (Gazebo & Unity)
+sidebar_label: Gazebo & Unity
+description: Physics simulation and environment building.
 ---
 
-# The Digital Twin
+# Module 2: The Digital Twin (Gazebo & Unity)
 
-## Why Simulate?
+**Focus:** Physics simulation and environment building.  
+**Weeks 6-7: Robot Simulation with Gazebo**
 
-Training a humanoid robot in the real world is:
-1.  **Dangerous**: A 50kg robot falling can hurt people or itself.
-2.  **Slow**: Real-time cannot be sped up.
-3.  **Expensive**: Parts break.
+## Overview
+Before a robot takes its first physical step, it walks a thousand miles in simulation. A "Digital Twin" is a high-fidelity virtual replica of the robot and its environment. This module covers the tools used to create these safe training grounds.
 
-A **Digital Twin** allows us to train safely, faster than real-time, and at zero marginal cost.
+## Gazebo Simulation
+### Physics Simulation
+Gazebo is the standard for ROS-integrated physics simulation. We cover:
+*   **Simulating Physics:** Gravity, friction, collisions, and rigid body dynamics.
+*   **Environment Setup:** Building world files that replicate the test environment.
+*   **Sensor Simulation:** Simulating data from LiDAR, Depth Cameras, and IMUs to test perception algorithms without hardware.
 
-## The Simulation Landscape
+### URDF and SDF
+*   **URDF (Unified Robot Description Format):** The standard XML format for describing robot kinematics.
+*   **SDF (Simulation Description Format):** An extension used by Gazebo for more detailed physical properties.
 
-### Gazebo (Classic & Ignition)
-The standard simulator for ROS.
--   **Pros**: Tight ROS integration, huge community, lightweight.
--   **Cons**: Visual fidelity is low (looks like a game from 2005), contact physics can be unstable for bipedal walking.
-
-### Unity / Unreal
-Game engines repurposed for robotics.
--   **Pros**: Incredible visuals, VR support.
--   **Cons**: Integrating with ROS requires bridges (ROS# or TCP connectors), physics engines (PhysX) prioritize stability over accuracy.
-
-### NVIDIA Isaac Sim (Our Choice)
-Built on Omniverse.
--   **Pros**: Photorealistic ray-tracing (crucial for vision models), GPU-accelerated physics (PhysX 5), native ROS 2 bridge.
--   **Cons**: Requires heavy GPU hardware.
-
-## URDF: The Robot DNA
-
-To simulate a robot, we must describe it in **URDF (Unified Robot Description Format)**. This XML file defines:
--   **Links**: The rigid parts (thigh, shin, foot).
--   **Joints**: How they connect (hip hinge, knee hinge).
--   **Inertia**: Mass and distribution of weight.
--   **Visuals**: 3D meshes (.dae, .stl) for how it looks.
--   **Collision**: Simplified geometry for physics calculations.
+## Introduction to Unity
+For tasks requiring high-fidelity visual rendering and complex human-robot interaction, we introduce Unity. Unity's advanced rendering engine allows for more realistic camera data, which is crucial for training computer vision models that transfer well to the real world.

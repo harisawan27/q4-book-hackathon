@@ -11,6 +11,12 @@ const config: Config = {
   tagline: 'A Technical Book on Robot Learning',
   favicon: 'img/favicon.ico',
 
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
+
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
@@ -64,8 +70,6 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: false, // Disable the blog plugin
         theme: {
