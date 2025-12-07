@@ -352,13 +352,13 @@
   animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-size: 0.9em;
   font-weight: 600;
-  transform: translateX(-50%);
+  transform: translateY(-70%);
   border: 1px solid rgba(0,0,0,0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .selectionMenu:hover {
-  transform: translateX(-50%) scale(1.05);
+  transform: translateY(-70%) scale(1.05);
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
