@@ -5,7 +5,8 @@ from src.services.embedding import get_embedding
 from src.services.retrieval import search_similar_chunks
 from src.models.rag import ChatRequest
 
-genai.configure(api_key="AIzaSyDzFQKNhbXLS4A1xEF0E1XjYEhuJDSXisE")
+settings = get_settings()
+genai.configure(api_key=settings.GEMINI_API_KEY)
 
 SYSTEM_PROMPT = """You are a helpful AI assistant for the Docusaurus Robotics Book.
 
