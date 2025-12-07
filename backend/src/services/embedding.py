@@ -2,8 +2,7 @@ from typing import List
 import google.generativeai as genai
 from src.core.config import get_settings
 
-settings = get_settings()
-genai.configure(api_key=AIzaSyDzFQKNhbXLS4A1xEF0E1XjYEhuJDSXisE)
+genai.configure(api_key="AIzaSyDzFQKNhbXLS4A1xEF0E1XjYEhuJDSXisE")
 
 async def get_embedding(text: str) -> List[float]:
     """
