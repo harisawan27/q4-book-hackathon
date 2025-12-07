@@ -1,44 +1,58 @@
 <!--
 SYNC IMPACT REPORT
-Version change: 1.0.0 -> 1.1.0
-Modified: Renamed project to "Docusaurus Book Project". Merged core SDD principles with user-provided book production principles.
-Added sections: Verified Reproducibility, Accessibility & Clarity, Framework Alignment.
-Removed sections: Test-First (Superseded by Verified Reproducibility for book context).
+Version change: 1.1.0 -> 2.0.0
+Modified: Renamed project to "Integrated RAG Chatbot for Docusaurus Robotics Book". Updated all principles to align with RAG/AI constraints.
+Added sections: Transparency, Security, Detailed Technology Stack & Constraints.
+Removed sections: Accessibility & Clarity (merged into Consistency), Framework Alignment (merged into Consistency).
 Templates requiring updates: None.
 Follow-up: None.
 -->
-# Docusaurus Book Project Constitution
+# Integrated RAG Chatbot for Docusaurus Robotics Book Constitution
 
 ## Core Principles
 
 ### I. Spec-Driven Development (SDD)
-All chapters and features start with a specification. We clarify requirements, outline structure, and define content blocks before writing. The spec file is the source of truth.
+All features start with a specification. We clarify requirements, outline structure, and define content blocks before writing code. The spec file is the source of truth.
 
-### II. Verified Reproducibility
-All tutorials, code samples, and deployment steps MUST be tested and reproducible. Users (beginners to intermediate) must be able to execute every instruction without error. "Works on my machine" is not acceptable; it must work on Windows and macOS.
+### II. Accuracy
+All chatbot responses must rely strictly on the book’s content or the user-selected text. Hallucinations or answers derived from outside the retrieved context are unacceptable.
 
-### III. Accessibility & Clarity
-Use simple, direct language. Avoid unnecessary jargon. Explain *why* before showing *how*. Content is written for humans first, aiming for a consistent "beginner-to-intermediate" tone.
+### III. Transparency
+The system must clearly indicate when it cannot answer because the content is outside the retrieved context. It must provide specific citations to the retrieved chunks used to generate an answer.
 
-### IV. Framework Alignment (Docusaurus First)
-Structure content according to Docusaurus best practices (intro, guides, tutorials, references). The book itself must build with zero warnings. Code examples must adhere to modern JS/TS standards.
+### IV. Reproducibility
+All RAG pipeline steps (embedding, retrieval, API calls, schema, metadata) must be documented and traceable. The entire pipeline, including content ingestion and deployment, must be reproducible by users following the documentation.
 
-### V. Authoritative Source Mandate
-Agents MUST prioritize using CLI commands for information gathering. Do not invent APIs or Docusaurus configuration options; verify them against documentation or actual execution.
+### V. Security
+No unsafe model actions, unrestricted tool execution, or hallucinations beyond retrieved text. Personally Identifiable Information (PII) must strictly NOT be stored.
 
-### VI. Knowledge Capture (PHR)
+### VI. Consistency
+Chatbot behavior must remain aligned with the book’s technical definitions, modules, and terminology. The implementation must strictly adhere to the defined technology stack and Docusaurus integration patterns.
+
+### VII. Knowledge Capture (PHR)
 Every user interaction must be recorded in a Prompt History Record (PHR). Context is preserved to allow seamless handoffs.
 
 ## Operational Standards
 
-- **Format**: Markdown source compatible with Docusaurus.
-- **Visuals**: Provide screenshots or terminal snippets where helpful.
-- **Workflow**: The book is produced using Spec-Kit Plus and the AI Agent (Gemini) as core tools.
-- **Scope**: Minimum 6 chapters (Intro, Setup, Building, Writing, Deployment, Advanced).
-- **Deliverable**: At least 1 complete working Docusaurus project included.
+### Technology Stack
+- **RAG Orchestration**: OpenAI Agents / ChatKit SDKs.
+- **Backend**: FastAPI server (container-deployable).
+- **Database**: Neon Serverless Postgres (metadata + logs) + Qdrant Cloud (vector storage).
+- **Frontend**: React/MDX components embedded in Docusaurus.
+
+### Data & Retrieval
+- **Vector Schema**: Must include file path, section, heading, and paragraph ID.
+- **Ingestion**: Automated pipeline extracting MD/MDX content from Docusaurus to Qdrant/Neon.
+- **Retrieval Logic**: Deterministic, prioritizing user-selected text, then book corpus embeddings.
+- **Answering Rule**: If retrieval < threshold or irrelevant -> "Not enough information".
+
+### User Experience
+- **Interface**: Chatbot panel within the book.
+- **Interaction**: Support text selection -> "Ask AI about this section".
+- **Performance**: Response latency max 3 seconds under normal load.
 
 ## Governance
 
 This constitution supersedes all other practices. Amendments require a pull request and version bump.
 
-**Version**: 1.1.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-05
+**Version**: 2.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07

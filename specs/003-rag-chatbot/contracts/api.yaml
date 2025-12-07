@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+paths:
+  /chat:
+    post:
+      summary: Send a message and get a streaming response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                session_id:
+                  type: string
+                  format: uuid
+                message:
+                  type: string
+                selected_text:
+                  type: string
+                  description: "Optional text selected by the user in the UI"
+                page_context:
+                  type: string
+                  description: "URL or ID of the current page"
+      responses:
+        '200':
+          description: Server-Sent Events stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+  
+  /feedback:
+    post:
+      summary: Submit feedback for a message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_id:
+                  type: string
+                score:
+                  type: integer
+                  enum: [1, -1]
+      responses:
+        '200':
+          description: Feedback recorded
+  
+  /index:
+    post:
+      summary: Trigger re-indexing of the book content
+      parameters:
+        - in: header
+          name: X-Admin-Secret
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Indexing started successfully
