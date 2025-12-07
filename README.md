@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Physical AI & Humanoid Robotics - Capstone Book
 
 Welcome to the repository for the **Physical AI & Humanoid Robotics** technical book and capstone module specification. This project is built with Docusaurus and serves as a comprehensive guide for engineering students and professionals venturing into the world of humanoid robotics, physical AI, and robot learning.
@@ -98,5 +97,3 @@ Copyright © 2025 Physical AI & Humanoid Robotics.
 
 *Built for the Q4 Book Hackathon by Haris Awan.*
 =======
-# q4-book-hackathon
->>>>>>> f21a8b7a7c1059de2a294dd5e1cbdd902d7c1c11
