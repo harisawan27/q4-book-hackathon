@@ -28,11 +28,11 @@ tests:
 
 ## Prompt
 
-integrate these credentials "QDRANT_URL = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.jh1EV6Ns084H5n0ySvUhRWKdC_Kqj9yID3DHGf4_Kds
+integrate these credentials "QDRANT_URL = "Url ............"
 
-QDRANT_API_KEY = https://00161c37-f966-496e-9005-9c7497a6baaf.europe-west3-0.gcp.cloud.qdrant.io
+QDRANT_API_KEY = https://key...........
 
-NEON_DATABASE_URL = postgresql://neondb_owner:npg_r3gYVZkOsz5f@ep-falling-meadow-a1momz62-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require" and i am not gonna use openai api i will use gemini api so use that
+NEON_DATABASE_URL = postgresql://key........" and i am not gonna use openai api i will use gemini api so use that
 
 ## Response snapshot
 
