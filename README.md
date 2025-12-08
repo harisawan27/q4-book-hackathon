@@ -26,6 +26,16 @@ The book is structured into four core modules culminating in a final capstone pr
 -   Navigating complex environments (Nav2).
 -   Manipulating objects.
 
+## 🤖 Interactive AI Features
+
+We have integrated a **RAG (Retrieval-Augmented Generation) Chatbot** to enhance the learning experience.
+
+### Integrated RAG Chatbot
+Built with **FastAPI**, **OpenAI Agents**, **Neon Serverless Postgres**, and **Qdrant Cloud**, this chatbot understands the book's full context.
+-   **Context-Aware Q&A**: Ask questions about any module or concept in the book.
+-   **"Ask AI" Button**: Select any text in the book to instantly query the AI for explanations or deep dives on that specific topic.
+-   **Source Attribution**: Answers are grounded in the book's content, reducing hallucinations.
+
 ## 🛠 Tech Stack
 
 -   **Framework**: [Docusaurus v3](https://docusaurus.io/)
@@ -33,6 +43,7 @@ The book is structured into four core modules culminating in a final capstone pr
 -   **Diagrams**: Mermaid.js
 -   **Math**: KaTeX
 -   **Search**: Local Search Plugin
+-   **AI & Backend**: FastAPI, OpenAI SDK, Qdrant (Vector DB), Neon (Postgres)
 -   **Development Methodology**: Spec-Driven Development (SDD) with Gemini Agent
 
 ## 🏁 Getting Started
@@ -95,5 +106,4 @@ Copyright © 2025 Physical AI & Humanoid Robotics.
 
 ---
 
-*Built for the GIAIC Q4 Hackathon by Haris Awan.*
-=======
+*Built for the Q4 Book Hackathon by Haris Awan.*

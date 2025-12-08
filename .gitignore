@@ -11,3 +11,11 @@ yarn-debug.log*
 yarn-error.log*
 .npm-cache/
 .gemini/tmp/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
