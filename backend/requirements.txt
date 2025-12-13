@@ -4,8 +4,12 @@ google-generativeai
 qdrant-client
 python-dotenv
 asyncpg
+better-auth
 sqlalchemy
 pydantic
 pydantic-settings
 ruff
 black
+python-jose[cryptography]
+passlib[bcrypt]
+email-validator

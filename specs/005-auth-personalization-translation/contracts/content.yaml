@@ -1,0 +1,289 @@
+openapi: 3.0.3
+info:
+  title: Content Transformation API
+  description: Content personalization and translation endpoints
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://api.example.com/api/v1
+    description: Production
+
+paths:
+  /content/personalize:
+    post:
+      summary: Personalize chapter content
+      description: |
+        Adapt chapter content based on user's background profile.
+        Requires completed background questionnaire.
+        Rate limited to 10 requests per user per hour.
+      operationId: personalizeContent
+      tags:
+        - Content Transformation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizeRequest'
+      responses:
+        '200':
+          description: Content personalized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformationResponse'
+        '400':
+          description: Missing content or invalid chapter slug
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Background questionnaire not completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded (10/hour/user)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+        '503':
+          description: Personalization service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /content/translate:
+    post:
+      summary: Translate chapter content
+      description: |
+        Translate chapter content to Urdu while preserving technical terms.
+        Rate limited to 10 requests per user per hour.
+      operationId: translateContent
+      tags:
+        - Content Transformation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateRequest'
+      responses:
+        '200':
+          description: Content translated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformationResponse'
+        '400':
+          description: Missing content or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded (10/hour/user)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+        '503':
+          description: Translation service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /content/logs:
+    get:
+      summary: Get transformation history
+      description: Retrieve user's content transformation history
+      operationId: getTransformationLogs
+      tags:
+        - Content Transformation
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Maximum number of logs to return
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of logs to skip
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [personalization, translation]
+          description: Filter by transformation type
+      responses:
+        '200':
+          description: Transformation logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformationLogsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    PersonalizeRequest:
+      type: object
+      required:
+        - chapter_slug
+        - content
+      properties:
+        chapter_slug:
+          type: string
+          description: Chapter identifier from URL
+          example: introduction-to-ros2
+        content:
+          type: string
+          description: Original chapter content in markdown
+          example: "# Introduction to ROS 2\n\nROS 2 is a flexible framework..."
+
+    TranslateRequest:
+      type: object
+      required:
+        - chapter_slug
+        - content
+      properties:
+        chapter_slug:
+          type: string
+          description: Chapter identifier from URL
+          example: introduction-to-ros2
+        content:
+          type: string
+          description: Original chapter content in markdown
+          example: "# Introduction to ROS 2\n\nROS 2 is a flexible framework..."
+        target_language:
+          type: string
+          default: Urdu
+          description: Target language for translation
+          example: Urdu
+
+    TransformationResponse:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Transformed content in markdown
+        original_length:
+          type: integer
+          description: Character count of original content
+        transformed_length:
+          type: integer
+          description: Character count of transformed content
+        duration_ms:
+          type: integer
+          description: Processing time in milliseconds
+        transformation_type:
+          type: string
+          enum: [personalization, translation]
+
+    TransformationLogResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        chapter_slug:
+          type: string
+        transformation_type:
+          type: string
+          enum: [personalization, translation]
+        input_length:
+          type: integer
+        output_length:
+          type: integer
+        duration_ms:
+          type: integer
+        success:
+          type: boolean
+        error_message:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    TransformationLogsResponse:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformationLogResponse'
+        total:
+          type: integer
+          description: Total number of logs
+        limit:
+          type: integer
+          description: Requested limit
+        offset:
+          type: integer
+          description: Requested offset
+
+    RateLimitResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: Rate limit exceeded
+        message:
+          type: string
+          example: Maximum 10 transformations per hour. Please try again later.
+        retry_after:
+          type: integer
+          description: Seconds until rate limit resets
+          example: 1800
+
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        message:
+          type: string

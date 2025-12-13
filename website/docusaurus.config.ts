@@ -48,6 +48,9 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
         docsRouteBasePath: '/',
+        // Disable keyboard shortcut to prevent errors with form inputs
+        searchBarShortcut: false,
+        searchBarShortcutHint: false,
       },
     ],
   ],
@@ -100,6 +103,10 @@ const config: Config = {
         {
           href: 'https://github.com/harisawan27',
           label: 'GitHub',
+          position: 'right',
+        },
+        {
+          type: 'custom-navbarAuth',
           position: 'right',
         },
       ],

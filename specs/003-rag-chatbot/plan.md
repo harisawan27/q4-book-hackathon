@@ -1,133 +1,104 @@
-# Implementation Plan: Integrated RAG Chatbot
+# Implementation Plan: [FEATURE]
 
-**Branch**: `003-rag-chatbot` | **Date**: 2025-12-07 | **Spec**: [spec.md](./spec.md)
-**Input**: Feature specification from `/specs/003-rag-chatbot/spec.md`
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+
+**Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-This feature integrates a RAG-powered chatbot into the Docusaurus book. It involves a Python FastAPI backend that ingests documentation into Qdrant (vector store), handles queries using OpenAI embeddings and chat completion, and logs interactions to Neon Postgres. The frontend is a React widget embedded in Docusaurus that supports context-aware questions via text selection.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: Python 3.11 (Backend), TypeScript 5.0+ (Frontend)
-**Primary Dependencies**: FastAPI, OpenAI SDK, Qdrant Client, React, Docusaurus
-**Storage**: Neon (Postgres), Qdrant (Vector)
-**Testing**: pytest (Backend), Jest (Frontend)
-**Target Platform**: Containerized Backend (Docker/Render/Railway), Static Frontend (Vercel/Netlify)
-**Project Type**: Web Application (Docusaurus Frontend + API Backend)
-**Performance Goals**: <3s p95 response time (excluding LLM generation)
-**Constraints**: No PII storage, Strict "No Hallucination" policy
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
-*GATE: Passed.*
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Accuracy**: Enforced via RAG retrieval verification.
-- **Transparency**: Citations required in response.
-- **Reproducibility**: Ingestion scripts and API defined.
-- **Security**: No PII, standard API security.
-- **Consistency**: Using Docusaurus components and defined tech stack.
+[Gates determined based on constitution file]
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/003-rag-chatbot/
-├── plan.md              # This file
-├── research.md          # Phase 0 output
-├── data-model.md        # Phase 1 output
-├── quickstart.md        # Phase 1 output
-├── contracts/           # Phase 1 output
-│   └── api.yaml
-└── tasks.md             # Phase 2 output
+specs/[###-feature]/
+├── plan.md              # This file (/sp.plan command output)
+├── research.md          # Phase 0 output (/sp.plan command)
+├── data-model.md        # Phase 1 output (/sp.plan command)
+├── quickstart.md        # Phase 1 output (/sp.plan command)
+├── contracts/           # Phase 1 output (/sp.plan command)
+└── tasks.md             # Phase 2 output (/sp.tasks command - NOT created by /sp.plan)
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
+
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
 backend/
 ├── src/
-│   ├── api/             # FastAPI routes
-│   ├── core/            # Config, Security
-│   ├── services/        # RAG, Database, Qdrant logic
-│   └── models/          # Pydantic models
-├── scripts/             # Ingestion scripts
+│   ├── models/
+│   ├── services/
+│   └── api/
 └── tests/
 
-website/ (Existing)
+frontend/
 ├── src/
 │   ├── components/
-│   │   └── ChatWidget/  # New Chat UI
-│   └── theme/           # Docusaurus theme swizzling (if needed)
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-## 1. Architecture Sketch
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
-**Data Flow**:
-1.  **Ingestion**: `Docusaurus MDX` -> `Python Script` -> `Chunking` -> `OpenAI Embedding` -> `Qdrant`.
-2.  **Query**: `User` -> `Chat Widget` -> `FastAPI` -> `OpenAI Embedding` -> `Qdrant Search` -> `Context Assembly` -> `OpenAI Chat Completion` -> `FastAPI (SSE)` -> `Chat Widget`.
-3.  **Logging**: `FastAPI` -> `Neon Postgres` (Async logging).
+## Complexity Tracking
 
-## 2. Research Approach
+> **Fill ONLY if Constitution Check has violations that must be justified**
 
-- **Embedding**: Selected `text-embedding-3-small` for speed/cost balance.
-- **Chunking**: Header-aware Markdown splitting to preserve context.
-- **Validation**: Manual testing of "Context Mode" vs "Global Mode" queries.
-
-## 3. Quality Validation
-
-- **Groundedness**: Validated by verifying citations in responses match retrieved chunks.
-- **Selected-Text Compliance**: Test cases where user selects text X and asks question Y; system must prioritize X.
-- **Latency**: Measured via API middleware logging.
-- **Safety**: Test for "I don't know" responses when context is irrelevant.
-
-## 4. Decisions Needing Documentation
-
-| Decision | Choice | Rationale |
-|---|---|---|
-| **Embedding** | `text-embedding-3-small` | Efficient, low latency, sufficient for docs. |
-| **Streaming** | Server-Sent Events (SSE) | Standard for LLM chat, simpler than WebSockets. |
-| **Vector DB** | Qdrant Cloud | Free tier, robust filtering, Python client. |
-| **Chunking** | Header-based | Preserves technical context better than fixed chars. |
-| **Frontend** | React Portal/Widget | Non-intrusive overlay on Docusaurus pages. |
-
-## 5. Testing Strategy
-
-- **Unit Tests**: Chunking logic, API request validation, Database models.
-- **Integration Tests**:
-    - `test_indexing`: Run small MD sample -> Verify vectors in Qdrant.
-    - `test_chat_api`: Mock OpenAI -> Verify full pipeline flow.
-- **E2E Tests**: Manual verification of Chat Widget in Docusaurus build.
-
-## 6. Phased Plan
-
-### Phase 1: Setup & Infrastructure
-- [ ] Initialize FastAPI project structure in `backend/`.
-- [ ] Set up Neon Postgres and Qdrant Cloud accounts/connection.
-- [ ] Implement Database migrations (SQLAlchemy/Alembic).
-- [ ] Create basic "Hello World" API endpoint.
-
-### Phase 2: Ingestion Pipeline
-- [ ] Implement MDX parser and chunker.
-- [ ] Implement OpenAI Embedding service.
-- [ ] Create `scripts/index_book.py` to pipeline data to Qdrant.
-- [ ] Verify data in Qdrant dashboard.
-
-### Phase 3: Backend RAG Logic
-- [ ] Implement `search_service` (Qdrant query + filtering).
-- [ ] Implement `chat_service` (OpenAI call + context construction).
-- [ ] Create `/chat` endpoint with SSE streaming.
-- [ ] Add logging to Neon.
-
-### Phase 4: Frontend Integration
-- [ ] Create `ChatWidget` React component in `website/src/components`.
-- [ ] Implement SSE consumption hook.
-- [ ] Add text selection event listener (`mouseup` handler).
-- [ ] Integrate widget into Docusaurus Layout.
-
-### Phase 5: Polish & Deploy
-- [ ] Add rate limiting.
-- [ ] Add citations rendering in UI.
-- [ ] Deploy backend to cloud provider.
-- [ ] Configure Docusaurus build to point to production API.
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

@@ -1,0 +1,190 @@
+openapi: 3.0.3
+info:
+  title: Profile API
+  description: User profile and background questionnaire endpoints
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://api.example.com/api/v1
+    description: Production
+
+paths:
+  /profile:
+    get:
+      summary: Get user profile
+      description: Retrieve current user's profile with background data
+      operationId: getProfile
+      tags:
+        - Profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /profile/background:
+    get:
+      summary: Get user background
+      description: Retrieve user's background questionnaire responses
+      operationId: getBackground
+      tags:
+        - Profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Background data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Background not completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update user background
+      description: Create or update user's background questionnaire
+      operationId: updateBackground
+      tags:
+        - Profile
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundUpdate'
+      responses:
+        '200':
+          description: Background updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundUpdateResponse'
+        '400':
+          description: Invalid experience level or skill values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    BackgroundUpdate:
+      type: object
+      properties:
+        software_skills:
+          type: string
+          enum: [none, beginner, intermediate, advanced]
+          description: Software/programming experience level
+          example: intermediate
+        hardware_skills:
+          type: string
+          enum: [none, beginner, intermediate, advanced]
+          description: Hardware/robotics experience level
+          example: beginner
+        experience_level:
+          type: string
+          enum: [student, professional, hobbyist, researcher]
+          description: User's primary role
+          example: student
+
+    BackgroundResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        software_skills:
+          type: string
+          enum: [none, beginner, intermediate, advanced]
+        hardware_skills:
+          type: string
+          enum: [none, beginner, intermediate, advanced]
+        experience_level:
+          type: string
+          enum: [student, professional, hobbyist, researcher]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    BackgroundUpdateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Background updated successfully
+        background:
+          $ref: '#/components/schemas/BackgroundResponse'
+
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          nullable: true
+        email_verified:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        background:
+          $ref: '#/components/schemas/BackgroundResponse'
+          nullable: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        message:
+          type: string

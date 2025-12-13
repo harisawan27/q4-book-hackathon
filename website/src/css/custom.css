@@ -431,7 +431,7 @@
   .home-hero {
     text-align: center;
   }
-  
+
   .hero-text-col {
     text-align: center;
     align-items: center;
@@ -447,13 +447,144 @@
     text-align: center;
     align-items: center;
   }
-  
+
   .module-card-content {
     text-align: left; /* Keep list aligned left */
   }
-  
-  .module-card-content h3, 
+
+  .module-card-content h3,
   .module-card-content p {
     text-align: center;
+  }
+}
+
+/* ============================================
+   Form Input Styles
+   ============================================ */
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--ifm-color-emphasis-500);
+}
+
+.form-input:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.15);
+}
+
+.form-input:disabled {
+  background-color: var(--ifm-color-emphasis-100);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Dark mode adjustments for inputs */
+[data-theme='dark'] .form-input {
+  background-color: var(--ifm-background-color);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .form-input:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.25);
+}
+
+/* Select dropdown styling */
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+.form-select:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.15);
+}
+
+[data-theme='dark'] .form-select {
+  background-color: var(--ifm-background-color);
+  border-color: var(--ifm-color-emphasis-400);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23aaa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}
+
+/* Form label styling */
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--ifm-font-color-base);
+}
+
+/* Form helper text */
+.form-helper {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* ============================================
+   Mobile Navigation Auth Items
+   ============================================ */
+
+/* Show auth links in mobile menu */
+.navbar-sidebar .navbar-auth-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.navbar-auth-mobile .menu__link {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.navbar-auth-mobile .menu__link--signup {
+  background: var(--ifm-color-primary);
+  color: #000;
+  text-align: center;
+}
+
+.navbar-auth-mobile .menu__link--signup:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+/* Hide desktop auth items on mobile */
+@media (max-width: 996px) {
+  .navbar__item.navbar-auth-desktop {
+    display: none;
+  }
+}
+
+/* Show desktop auth items on larger screens */
+@media (min-width: 997px) {
+  .navbar-auth-mobile {
+    display: none !important;
   }
 }

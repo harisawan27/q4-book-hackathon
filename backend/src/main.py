@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.core.config import get_settings
 from src.core.logging import logger
 from src.api.routes import router as api_router
+from src.api.auth_routes import router as auth_router
+from src.api.profile_routes import router as profile_router
+from src.api.content_routes import router as content_router
 from src.api.middleware import RateLimitMiddleware
 
 settings = get_settings()
@@ -23,7 +26,11 @@ app.add_middleware(
 
 app.add_middleware(RateLimitMiddleware, limit=50, window=3600)
 
+# Register routers
 app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(auth_router, prefix=settings.API_V1_STR)
+app.include_router(profile_router, prefix=settings.API_V1_STR)
+app.include_router(content_router, prefix=settings.API_V1_STR)
 
 @app.get("/health")
 async def health_check():
