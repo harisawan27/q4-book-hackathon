@@ -16,7 +16,8 @@
       "Bash(npm run build:*)",
       "Bash(curl:*)",
       "Bash(python:*)",
-      "Bash(__NEW_LINE__ echo \"\")"
+      "Bash(__NEW_LINE__ echo \"\")",
+      "Bash(echo:*)"
     ]
   }
 }
