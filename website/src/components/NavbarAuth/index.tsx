@@ -75,7 +75,7 @@ export function NavbarAuth({ mobile = false }: NavbarAuthProps) {
       <a className="navbar__item navbar__link navbar-auth-desktop" href="/signin">
         Sign In
       </a>
-      <a className="navbar__item navbar__link button button--primary button--md navbar-auth-desktop" href="/signup" style={{ marginLeft: 8 }}>
+      <a className="navbar__item navbar__link button button--primary button--md navbar-auth-desktop" href="/signup" style={{ marginLeft: 8, marginRight: 8 }}>
         Sign Up
       </a>
     </>
