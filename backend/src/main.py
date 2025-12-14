@@ -18,7 +18,10 @@ app = FastAPI(
 # Set all CORS enabled origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=[
+        "http://localhost:3000",                  # For your local testing
+        "https://q4-book-hackathon-1.vercel.app"  # <--- YOUR ACTUAL FRONTEND URL
+    ],  # In production, replace with specific origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
