@@ -5,7 +5,18 @@ export interface ChatRequest {
     page_context?: string;
 }
 
-const API_URL = (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || "http://localhost:8000/api/v1";
+// API URL - defaults to localhost for development, production URL for deployed sites
+const getApiUrl = (): string => {
+  if (typeof window !== 'undefined') {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:8000/api/v1';
+    }
+    return 'https://harisawan07-q4-hackathon-1.hf.space/api/v1';
+  }
+  return 'https://harisawan07-q4-hackathon-1.hf.space/api/v1';
+};
+
+const API_URL = getApiUrl();
 
 export const streamChat = async (
     request: ChatRequest, 

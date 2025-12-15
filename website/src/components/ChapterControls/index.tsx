@@ -27,6 +27,8 @@ export function ChapterControls({
   const [isTranslating, setIsTranslating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastTransformation, setLastTransformation] = useState<TransformationResponse | null>(null);
+  // Track content availability with state to trigger re-renders
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   // Use ref to track the original content - updates when initialContent changes
   const originalContentRef = useRef(initialContent);
@@ -35,6 +37,7 @@ export function ChapterControls({
   useEffect(() => {
     if (initialContent && initialContent.length > 0) {
       originalContentRef.current = initialContent;
+      setContentLoaded(true);
     }
   }, [initialContent]);
 
@@ -105,7 +108,8 @@ export function ChapterControls({
   }
 
   const isLoading = isPersonalizing || isTranslating || authLoading;
-  const hasContent = originalContentRef.current && originalContentRef.current.length > 0;
+  // Use contentLoaded state to properly trigger re-renders when content becomes available
+  const hasContent = contentLoaded && originalContentRef.current && originalContentRef.current.length > 0;
 
   return (
     <div className={styles.container}>
