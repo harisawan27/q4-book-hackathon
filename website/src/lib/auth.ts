@@ -17,10 +17,10 @@ const getApiUrl = (): string => {
       return 'http://localhost:8000/api/v1';
     }
     // In production, assume API is at same origin
-    return `https://q4-book-hackathon-backend.vercel.app/api/v1`;
+    return `https://harisawan07-q4-hackathon-1.hf.space/api/v1`;
   }
   // Server-side rendering fallback
-  return 'https://q4-book-hackathon-backend.vercel.app/api/v1';
+  return 'https://harisawan07-q4-hackathon-1.hf.space/api/v1';
 };
 
 const API_URL = getApiUrl();
