@@ -85,7 +85,7 @@ Personalize this content for the reader profile described above. Return only the
 
     try:
         model = genai.GenerativeModel(
-            model_name='gemini-1.5-flash',
+            model_name='gemini-2.5-flash',
             system_instruction=system_prompt
         )
 
@@ -156,7 +156,7 @@ Translate this content to {target_language}. Return only the translated markdown
 
     try:
         model = genai.GenerativeModel(
-            model_name='gemini-1.5-flash',
+            model_name='gemini-2.5-flash',
             system_instruction=system_prompt
         )
 
